@@ -6,8 +6,8 @@ const { PeerServer } = require("peer");
 const peerServerConfig = {
     port: 4447, 
     ssl: {
-       key: fs.readFileSync("/src/beastie/certs/localhost.key"),
-       cert: fs.readFileSync("/src/beastie/certs/localhost.crt"),
+       key: fs.readFileSync("../../certs/localhost.key"),
+       cert: fs.readFileSync("../../certs/localhost.crt"),
     },
 	allow_discovery: true,
 };
