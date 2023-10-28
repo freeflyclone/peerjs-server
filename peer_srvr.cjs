@@ -9,7 +9,7 @@ const peerServerConfig = {
        key: fs.readFileSync("/src/beastie/certs/localhost.key"),
        cert: fs.readFileSync("/src/beastie/certs/localhost.crt"),
     },
-    path: "/peerjs",
+	allow_discovery: true,
 };
 
 const peerServer = PeerServer(peerServerConfig);
