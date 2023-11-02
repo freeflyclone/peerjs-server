@@ -134,6 +134,7 @@ export class WebSocketServer extends EventEmitter implements IWebSocketServer {
 		socket.send(JSON.stringify({ type: MessageType.OPEN }));
 
 		this._configureWS(socket, newClient);
+		this._notifyPeersChanged(id, "NEW");
 	}
 
 	private _configureWS(socket: WebSocket, client: IClient): void {
@@ -142,6 +143,7 @@ export class WebSocketServer extends EventEmitter implements IWebSocketServer {
 		// Cleanup after a socket closes.
 		socket.on("close", () => {
 			if (client.getSocket() === socket) {
+				this._notifyPeersChanged(client.getId(), "CLOSED");
 				this.realm.removeClientById(client.getId());
 				this.emit("close", client);
 			}
@@ -173,6 +175,17 @@ export class WebSocketServer extends EventEmitter implements IWebSocketServer {
 		);
 
 		socket.close();
+	}
+
+	private _notifyPeersChanged(srcId: any, changed: any) {
+		var clientIDs = this.realm.getClientsIds();
+
+		for (const id of clientIDs ) {
+			var sock = this.realm.getClientById(id)?.getSocket();
+			var msg = { type: "PEERSCHANGED", src: srcId, dst: id, payload: { change: changed}};
+
+			sock?.send(JSON.stringify(msg));
+		}
 	}
 }
 
