@@ -3,13 +3,16 @@ const { PeerServer } = require("peer");
 
 var nextClientID = 0;
 
-// the ssl key/cert need changing depending on hostname.
-// TODO: figure out how to do so programmatically
+if (process.argv.length != 4) {
+    console.log("Usage: node peer_srvr.cjs ssl-cert-file ssl-key-file");
+    process.exit(9);
+}
+
 const peerServerConfig = {
     port: 4447, 
     ssl: {
-       key: fs.readFileSync("../../certs/localhost.key"),
-       cert: fs.readFileSync("../../certs/localhost.crt"),
+        cert: fs.readFileSync(process.argv[2]),
+        key: fs.readFileSync(process.argv[3]),
     },
 	allow_discovery: true,
     generateClientId: GenerateClientID,

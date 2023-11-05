@@ -31,6 +31,10 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\peer_srvr.cjs",
+            "args": [
+                "../../certs/localhost.crt",
+                "../../certs/localhost.key",
+            ],
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
