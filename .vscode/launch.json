@@ -30,8 +30,9 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\peer_srvr.cjs",
+            "program": "${workspaceFolder}/peer_srvr.cjs",
             "args": [
+                "4448",
                 "../../certs/localhost.crt",
                 "../../certs/localhost.key",
             ],

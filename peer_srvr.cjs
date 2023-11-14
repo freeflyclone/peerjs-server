@@ -3,16 +3,16 @@ const { PeerServer } = require("peer");
 
 var nextClientID = 0;
 
-if (process.argv.length != 4) {
-    console.log("Usage: node peer_srvr.cjs ssl-cert-file ssl-key-file");
+if (process.argv.length != 5) {
+    console.log("Usage: node peer_srvr.cjs port# ssl-cert-file ssl-key-file");
     process.exit(9);
 }
 
 const peerServerConfig = {
-    port: 4447, 
+    port: process.argv[2], 
     ssl: {
-        cert: fs.readFileSync(process.argv[2]),
-        key: fs.readFileSync(process.argv[3]),
+        cert: fs.readFileSync(process.argv[3]),
+        key: fs.readFileSync(process.argv[4]),
     },
 	allow_discovery: true,
     generateClientId: GenerateClientID,
